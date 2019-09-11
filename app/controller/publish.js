@@ -56,17 +56,15 @@ class PublishController extends Controller {
                     }
                 }
             }
-            // let arr1 = config.split('\n')
-            // for (const item of arr1) {
-            //     if (item) {
-            //         if (item.indexOf('=') !== -1) {
-            //             const subArr = item.split('=')
-            //             rs[subArr[0]] = subArr[1]
-            //         }
-            //     }
-            // }
-            rs.address = config.address
-            rs.type = config.type
+            let arr1 = config.split('\n')
+            for (const item of arr1) {
+                if (item) {
+                    if (item.indexOf('=') !== -1) {
+                        const subArr = item.split('=')
+                        rs[subArr[0]] = subArr[1]
+                    }
+                }
+            }
 
             ctx.body = JSON.stringify(rs)
             ctx.status = 200
@@ -103,7 +101,7 @@ class PublishController extends Controller {
         if (data.code === 0) {
             content = data.data.getContent().buf().toString()
             const json = JSON.parse(content)
-            console.log(json)
+       
             let {
                 result,
                 config
@@ -117,15 +115,17 @@ class PublishController extends Controller {
                     }
                 }
             }
-            let arr1 = config.split('\n')
-            for (const item of arr1) {
-                if (item) {
-                    if (item.indexOf('=') !== -1) {
-                        const subArr = item.split('=')
-                        rs[subArr[0]] = subArr[1]
-                    }
-                }
-            }
+            // let arr1 = config.split('\n')
+            // for (const item of arr1) {
+            //     if (item) {
+            //         if (item.indexOf('=') !== -1) {
+            //             const subArr = item.split('=')
+            //             rs[subArr[0]] = subArr[1]
+            //         }
+            //     }
+            // }
+            rs.type = config.type
+            rs.address = config.address
 
             ctx.body = JSON.stringify(rs)
             ctx.status = 200
