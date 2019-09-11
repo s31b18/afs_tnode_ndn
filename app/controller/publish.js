@@ -106,15 +106,16 @@ class PublishController extends Controller {
                 result,
                 config
             } = json
-            let arr = result.split(';')
-            for (const item of arr) {
-                if (item) {
-                    if (item.indexOf('=') !== -1) {
-                        const subArr = item.split('=')
-                        rs[subArr[0]] = subArr[1]
-                    }
-                }
-            }
+            // if(typeof result )
+            // let arr = result.split(';')
+            // for (const item of arr) {
+            //     if (item) {
+            //         if (item.indexOf('=') !== -1) {
+            //             const subArr = item.split('=')
+            //             rs[subArr[0]] = subArr[1]
+            //         }
+            //     }
+            // }
             // let arr1 = config.split('\n')
             // for (const item of arr1) {
             //     if (item) {
@@ -130,7 +131,9 @@ class PublishController extends Controller {
             ctx.body = JSON.stringify(rs)
             ctx.status = 200
         } else {
-            ctx.body = "file not found"
+            ctx.body = {
+                message: "File not found"
+            }
             ctx.status = 404
         }
     }
