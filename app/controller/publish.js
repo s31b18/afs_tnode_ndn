@@ -101,6 +101,7 @@ class PublishController extends Controller {
         if (data.code === 0) {
             content = data.data.getContent().buf().toString()
             const json = JSON.parse(content)
+            console.log(json)
             let {
                 result,
                 config
