@@ -106,6 +106,9 @@ class PublishController extends Controller {
                 result,
                 config
             } = json
+            console.log('----')
+            console.log(json)
+            console.log('----')
             // if(typeof result )
             // let arr = result.split(';')
             // for (const item of arr) {
