@@ -100,14 +100,10 @@ class PublishController extends Controller {
         let rs = {}
         if (data.code === 0) {
             content = data.data.getContent().buf().toString()
-            const json = JSON.parse(content)
+            const config = JSON.parse(content)
        
-            let {
-                result,
-                config
-            } = json
             console.log('----')
-            console.log(json)
+            console.log(config)
             console.log('----')
             // if(typeof result )
             // let arr = result.split(';')
