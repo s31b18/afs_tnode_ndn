@@ -11,7 +11,7 @@ Interest.setDefaultCanBePrefix(true);
 
 var face = new Face(new UnixTransport());
 
-function asyncInterest() {
+function asyncInterest(afid) {
     return new Promise(function (resolve) {
         const name = new Name(`/bfs/info/afid/${afid}`);
         // console.log("Express name " + name.toUri());
@@ -34,7 +34,7 @@ class PublishController extends Controller {
         } = ctx.query
         let content = null
         console.log('query ' + afid)
-        const data = await asyncInterest()
+        const data = await asyncInterest(afid)
         let rs = {}
         if (data.code === 0) {
             content = data.data.getContent().buf().toString()
