@@ -47,7 +47,7 @@ class PublishController extends Controller {
             rs.type = config.type
             rs.address = config.address
 
-            ctx.body = JSON.stringify(rs)
+            ctx.body = content
             ctx.status = 200
         } else {
             ctx.body = {

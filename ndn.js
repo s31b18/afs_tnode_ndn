@@ -54,7 +54,7 @@
 //     0x41, 0x02, 0x03, 0x01, 0x00, 0x01
 // ]);
 
-// // Use an unencrypted PKCS #8 PrivateKeyInfo.
+// Use an unencrypted PKCS #8 PrivateKeyInfo.
 // const DEFAULT_RSA_PRIVATE_KEY_DER = new Buffer([
 //     0x30, 0x82, 0x04, 0xbf, 0x02, 0x01, 0x00, 0x30, 0x0d, 0x06, 0x09, 0x2a, 0x86, 0x48, 0x86, 0xf7,
 //     0x0d, 0x01, 0x01, 0x01, 0x05, 0x00, 0x04, 0x82, 0x04, 0xa9, 0x30, 0x82, 0x04, 0xa5, 0x02, 0x01,
@@ -152,12 +152,12 @@
 //     return result
 // }
 // Echo.prototype.onInterest = async function (prefix, interest, face, interestFilterId, filter) {
-//     //console.log('---------------PIT:------------')
-//     //console.log(PIT)
-//     // Make and sign a Data packet.
+//     console.log('---------------PIT:------------')
+//     console.log(PIT)
+//     Make and sign a Data packet.
 //     const that = this
 //     const data = new Data(interest.getName());
-//     // info request : /bfs/info/afid=xxxxx
+//     info request : /bfs/info/afid=xxxxx
 //     const str = interest.getName().toUri()
 //     console.log(str)
 //     let blockId = 0
@@ -174,7 +174,7 @@
 //         return
 //     }
 
-//     // ...
+//     ...
 
 //     if ((str.split('/'))[2] === 'info') {
 //         let obj = {}
@@ -191,7 +191,7 @@
 //         }
 //     } else if ((str.split('/'))[2] === 'pre') {
 //         console.log('pre request :' + afid)
-//         // if (!PIT.includes(afid)) {
+//         if (!PIT.includes(afid)) {
 //         PIT.push(afid)
 //         PIT = distinctArr(PIT)
 //         const cmd1 = `
@@ -204,7 +204,7 @@
 //             highWaterMark: 8 * 1024
 //         })
 //         file.setEncoding('utf-8')
-//         // const ini = fs.readFileSync('/aos/afs/afs.ini', 'utf8')
+//         const ini = fs.readFileSync('/aos/afs/afs.ini', 'utf8')
 //         file.on('data', v => {
 //             arr.push(v)
 //         })
@@ -222,19 +222,19 @@
 //                 console.log(e.toString());
 //             }
 //         })
-//         // } else {
-//         //     console.log('pit includes')
-//         //     const arr = BufferTable[afid]
-//         //     data.setContent(JSON.stringify({
-//         //         blockNum: arr.length
-//         //     }))
-//         //     that.keyChain.sign(data);
-//         //     try {
-//         //         face.putData(data);
-//         //     } catch (e) {
-//         //         console.log(e.toString());
-//         //     }
-//         // }
+//         } else {
+//             console.log('pit includes')
+//             const arr = BufferTable[afid]
+//             data.setContent(JSON.stringify({
+//                 blockNum: arr.length
+//             }))
+//             that.keyChain.sign(data);
+//             try {
+//                 face.putData(data);
+//             } catch (e) {
+//                 console.log(e.toString());
+//             }
+//         }
 //     } else if ((str.split('/'))[2] === 'download') {
 //         console.log('download block ' + blockId)
 //         const arr = BufferTable[afid]
@@ -300,13 +300,13 @@
 
 // function main() {
 
-//     // Connect to the local forwarder with a Unix socket.
+//     Connect to the local forwarder with a Unix socket.
 //     const face = new Face(new UnixTransport());
 
-//     // For now, when setting face.setCommandSigningInfo, use a key chain with
-//     //   a default private key instead of the system default key chain. This
-//     //   is OK for now because NFD is configured to skip verification, so it
-//     //   ignores the system default key chain.
+//     For now, when setting face.setCommandSigningInfo, use a key chain with
+//       a default private key instead of the system default key chain. This
+//       is OK for now because NFD is configured to skip verification, so it
+//       ignores the system default key chain.
 //     const keyChain = new KeyChain("pib-memory:", "tpm-memory:");
 //     keyChain.importSafeBag(new SafeBag(new Name("/testname/KEY/123"),
 //         new Blob(DEFAULT_RSA_PRIVATE_KEY_DER, false),
