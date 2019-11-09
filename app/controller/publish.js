@@ -11,9 +11,9 @@ Interest.setDefaultCanBePrefix(true);
 
 var face = new Face(new UnixTransport());
 
-function asyncInterest(afid) {
+function asyncInterest(fid, fid_format) {
     return new Promise(function (resolve) {
-        const name = new Name(`/bfs/info/afid/${afid}`);
+        const name = new Name(`/bfs/query/${fid_format}/${fid}`);
         // console.log("Express name " + name.toUri());
         face.expressInterest(name, (_, data) => resolve({
             code: 0,
@@ -30,28 +30,19 @@ class PublishController extends Controller {
             ctx
         } = this
         const {
-            afid
+            fid,
+            fid_format
         } = ctx.query
         let content = null
-        console.log('query ' + afid)
-        const data = await asyncInterest(afid)
-        let rs = {}
+        const data = await asyncInterest(fid, fid_format)
         if (data.code === 0) {
             content = data.data.getContent().buf().toString()
-            console.log(content)
-            const config = JSON.parse(content)
-       
-            console.log('----')
-            console.log(config)
-            console.log('----')
-            rs.type = config.type
-            rs.address = config.address
-
-            ctx.body = content
+            const parsed_content = JSON.parse(content)
+            ctx.body = JSON.stringify(parsed_content)
             ctx.status = 200
         } else {
             ctx.body = {
-                message: "File not found"
+                message: "File Id Not Found"
             }
             ctx.status = 404
         }
