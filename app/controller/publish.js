@@ -11,16 +11,18 @@ Interest.setDefaultCanBePrefix(true);
 
 var face = new Face(new UnixTransport());
 
-function asyncInterest(fid, fid_format) {
+function asyncInterest(fid, fid_format, field) {
     return new Promise(function (resolve) {
-        const name = new Name(`/bfs/query/${fid_format}/${fid}`);
-        // console.log("Express name " + name.toUri());
-        face.expressInterest(name, (_, data) => resolve({
+        const name = new Name("/bfs/").append(field).append("query").append(fid_format).append(fid)
+        const interest = new Interest(name)
+        interest.setInterestLifetimeMilliseconds(1);
+        interest.setMustBeFresh(false);
+        face.expressInterest(interest, (_, data) => resolve({
             code: 0,
-            data
+            data: data,
         }), () => resolve({
             code: 1
-        }));
+        },));
     })
 }
 
@@ -30,11 +32,12 @@ class PublishController extends Controller {
             ctx
         } = this
         const {
+            field,
             fid,
             fid_format
         } = ctx.query
         let content = null
-        const data = await asyncInterest(fid, fid_format)
+        const data = await asyncInterest(fid, fid_format, field)
         if (data.code === 0) {
             content = data.data.getContent().buf().toString()
             const parsed_content = JSON.parse(content)
